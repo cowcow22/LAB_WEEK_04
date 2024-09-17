@@ -1,54 +1,51 @@
 package com.example.lab_week_04
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import android.widget.TextView
-import androidx.viewpager2.widget.ViewPager2
-import com.google.android.material.tabs.TabLayout
-import com.google.android.material.tabs.TabLayoutMediator
-
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-private const val TAB_CONTENT = "TAB_CONTENT"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [CafeDetailFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 
 class CafeDetailFragment : Fragment() {
-    private var content: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            content = it.getString(TAB_CONTENT)
+    companion object {
+        private const val ARG_TITLE = "title"
+        private const val ARG_DESCRIPTION = "description"
+
+        // Create a new instance of CafeDetailFragment and pass the arguments
+        fun newInstance(titleResId: Int, descriptionResId: Int): CafeDetailFragment {
+            val fragment = CafeDetailFragment()
+            val args = Bundle()
+            args.putInt(ARG_TITLE, titleResId)
+            args.putInt(ARG_DESCRIPTION, descriptionResId)
+            fragment.arguments = args
+            return fragment
         }
     }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-    // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_cafe_detail, container, false)
-    }
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        view.findViewById<TextView>(R.id.content_description)
-            ?.text = content
-    }
-    companion object {
-        fun newInstance(content: String) =
-            CafeDetailFragment().apply {
-                arguments = Bundle().apply {
-                    putString(TAB_CONTENT, content)
-                }
-            }
+        // Inflate the layout for this fragment
+        val view = inflater.inflate(R.layout.fragment_cafe_detail, container, false)
+
+        val titleTextView: TextView = view.findViewById(R.id.cafe_title)
+        val descriptionTextView: TextView = view.findViewById(R.id.cafe_description)
+
+        // Retrieve arguments passed to the fragment
+        val titleResId = arguments?.getInt(ARG_TITLE)
+        val descriptionResId = arguments?.getInt(ARG_DESCRIPTION)
+
+        // Set the title and description
+        if (titleResId != null) {
+            titleTextView.setText(titleResId)
+        }
+        if (descriptionResId != null) {
+            descriptionTextView.setText(descriptionResId)
+        }
+
+        return view
     }
 }
