@@ -25,5 +25,8 @@ class CafeAdapter(fragmentManager: FragmentManager, lifecycle: Lifecycle) :
         return TABS_FIXED.size
     }
 
-   
+    override fun createFragment(position: Int): Fragment {
+        // Create a new CafeDetailFragment and pass the title and description
+        return CafeDetailFragment.newInstance(TABS_FIXED[position], CAFE_DESCRIPTIONS[position])
+    }
 }
