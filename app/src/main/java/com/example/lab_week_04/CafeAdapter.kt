@@ -10,23 +10,14 @@ val TABS_FIXED = listOf(
     R.string.janjijiwa_title,
     R.string.kopikenangan_title,
 )
-
-// Add descriptions for each cafe
-val CAFE_DESCRIPTIONS = listOf(
-    R.string.starbucks_description,
-    R.string.janjijiwa_description,
-    R.string.kopikenangan_description
-)
-
 class CafeAdapter(fragmentManager: FragmentManager, lifecycle: Lifecycle) :
     FragmentStateAdapter(fragmentManager, lifecycle) {
-
     override fun getItemCount(): Int {
         return TABS_FIXED.size
     }
-
-    override fun createFragment(position: Int): Fragment {
-        // Create a new CafeDetailFragment and pass the title and description
-        return CafeDetailFragment.newInstance(TABS_FIXED[position], CAFE_DESCRIPTIONS[position])
+    override fun createFragment(position: Int): Fragment
+    {
+        return CafeDetailFragment()
     }
 }
+
